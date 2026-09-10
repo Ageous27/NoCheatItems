@@ -1,0 +1,5 @@
+<Project>
+  <PropertyGroup>
+    <ValheimPath Condition="'$(ValheimPath)' == ''">D:\Program Files\Steam\steamapps\common\Valheim</ValheimPath>
+  </PropertyGroup>
+</Project>
