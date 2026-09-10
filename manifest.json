@@ -1,7 +1,7 @@
 {
   "name": "NoCheatItems",
-  "version_number": "1.0.0",
-  "website_url": "",
+  "version_number": "1.0.1",
+  "website_url": "https://github.com/Ageous27/NoCheatItems",
   "description": "Server-side plugin that deletes Valheim 1.0 cheated items from player inventories, containers, and the world.",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2350"

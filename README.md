@@ -31,7 +31,7 @@ This does not un-flag a character or world that already used `devcommands`. It o
 
 1. Install [BepInExPack Valheim](https://valheim.thunderstore.io/package/denikson/BepInExPack_Valheim/) on the dedicated server.
 2. Copy `NoCheatItems.dll` into `BepInEx/plugins/`.
-3. Start the server once to generate `BepInEx/config/greg.nocheatitems.cfg`.
+3. Start the server once to generate `BepInEx/config/ageous27.nocheatitems.cfg`.
 
 ## Console
 

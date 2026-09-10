@@ -1,0 +1,33 @@
+[config]
+schemaVersion = "0.0.1"
+
+[package]
+namespace = "Ageous27"
+name = "NoCheatItems"
+versionNumber = "1.0.1"
+description = "Server-side plugin that deletes Valheim 1.0 cheated items from inventories, containers, and the world."
+websiteUrl = "https://github.com/Ageous27/NoCheatItems"
+containsNsfwContent = false
+
+[package.dependencies]
+denikson-BepInExPack_Valheim = "5.4.2350"
+
+[build]
+icon = "./icon.png"
+readme = "./README.md"
+outdir = "./build"
+
+[[build.copy]]
+source = "./bin/Release/NoCheatItems.dll"
+target = "/"
+
+[[build.copy]]
+source = "./CHANGELOG.md"
+target = "/"
+
+[publish]
+repository = "https://thunderstore.io"
+communities = ["valheim"]
+
+[publish.categories]
+valheim = ["mods", "ai-generated", "server-side"]

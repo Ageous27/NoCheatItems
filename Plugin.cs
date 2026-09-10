@@ -9,9 +9,9 @@ namespace NoCheatItems
     [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
     public class NoCheatItemsPlugin : BaseUnityPlugin
     {
-        public const string PluginGuid = "greg.nocheatitems";
+        public const string PluginGuid = "ageous27.nocheatitems";
         public const string PluginName = "NoCheatItems";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "1.0.1";
 
         internal static NoCheatItemsPlugin Instance { get; private set; }
         internal static ManualLogSource Log { get; private set; }
