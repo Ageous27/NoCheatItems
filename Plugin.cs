@@ -11,7 +11,7 @@ namespace NoCheatItems
     {
         public const string PluginGuid = "ageous27.nocheatitems";
         public const string PluginName = "NoCheatItems";
-        public const string PluginVersion = "1.0.1";
+        public const string PluginVersion = "1.0.2";
 
         internal static NoCheatItemsPlugin Instance { get; private set; }
         internal static ManualLogSource Log { get; private set; }

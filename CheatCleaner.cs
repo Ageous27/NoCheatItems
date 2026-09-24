@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace NoCheatItems
         };
 
         private static bool _sweeping;
+        private static bool _reloadingDrop;
 
         internal static bool IsServer()
         {
@@ -187,6 +189,31 @@ namespace NoCheatItems
             return removed;
         }
 
+        internal static void QueueWorldDropCheck(ItemDrop drop)
+        {
+            if (!ModConfig.Enabled.Value || !ModConfig.ScanWorldDrops.Value || !IsServer() || drop == null)
+            {
+                return;
+            }
+
+            if (NoCheatItemsPlugin.Instance != null)
+            {
+                NoCheatItemsPlugin.Instance.StartCoroutine(WorldDropNextFrame(drop));
+                return;
+            }
+
+            HandleWorldDrop(drop);
+        }
+
+        private static IEnumerator WorldDropNextFrame(ItemDrop drop)
+        {
+            yield return null;
+            if (drop != null)
+            {
+                HandleWorldDrop(drop);
+            }
+        }
+
         internal static void HandleWorldDrop(ItemDrop drop)
         {
             if (!ModConfig.Enabled.Value || !ModConfig.ScanWorldDrops.Value || !IsServer() || drop == null)
@@ -199,7 +226,14 @@ namespace NoCheatItems
                 return;
             }
 
-            if (!IsCheatItem(drop.m_itemData, out string reason) && !IsBannedPrefab(StripClone(drop.gameObject.name)))
+            // Creature loot sets m_cheated after Instantiate/Awake. Do not Load() first or a
+            // stale ZDO can overwrite the in-memory flag. Reload only if we do not already see it.
+            if (!IsCheatItem(drop.m_itemData, out string reason))
+            {
+                TryReloadDrop(drop);
+            }
+
+            if (!IsCheatItem(drop.m_itemData, out reason) && !IsBannedPrefab(StripClone(drop.gameObject.name)))
             {
                 return;
             }
@@ -266,10 +300,7 @@ namespace NoCheatItems
 
                 if (ModConfig.ScanWorldDrops.Value)
                 {
-                    foreach (ItemDrop drop in FindLoaded<ItemDrop>())
-                    {
-                        HandleWorldDrop(drop);
-                    }
+                    SweepWorldDrops();
                 }
 
                 if (ModConfig.ScanItemStands.Value)
@@ -288,6 +319,32 @@ namespace NoCheatItems
         }
 
         internal static bool Sweeping => _sweeping;
+
+        internal static void SweepWorldDrops()
+        {
+            foreach (ItemDrop drop in FindLoaded<ItemDrop>())
+            {
+                HandleWorldDrop(drop);
+            }
+        }
+
+        private static void TryReloadDrop(ItemDrop drop)
+        {
+            if (_reloadingDrop || drop == null)
+            {
+                return;
+            }
+
+            _reloadingDrop = true;
+            try
+            {
+                drop.Load();
+            }
+            finally
+            {
+                _reloadingDrop = false;
+            }
+        }
 
         internal static void RunGuardedInventorySweep(Inventory inventory)
         {

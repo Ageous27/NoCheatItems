@@ -23,7 +23,7 @@ Optional (off by default): stacks above max stack size, quality above max qualit
 
 Valheim keeps character files on the **client**. The dedicated server only sees a player's inventory while they are connected. Offline bags are cleaned the next time that player joins.
 
-Unloaded zones are cleaned when they stream in (a chest or dropped pile is scanned as soon as that area is loaded).
+Unloaded zones are cleaned when they stream in (a chest or dropped pile is scanned as soon as that area is loaded). Vanilla can stamp creature loot with the same cheated flag (the boar drop you saw); those piles are deleted on the dedicated server. Clients still do not need this mod for that.
 
 This does not un-flag a character or world that already used `devcommands`. It only destroys cheated **items**.
 
@@ -55,7 +55,7 @@ Sweeps every loaded player, container, world drop, and item stand immediately.
 | `RemoveOverquality` | false | Delete illegal upgrade levels |
 | `ScanPlayers` | true | Online inventories |
 | `ScanWorldDrops` | true | Items on the ground |
-| `ScanContainers` | true | Chests, carts, ships, tombstones |
+| `ScanContainers` | true | Chests, carts, ships, tombstones, Obliterator |
 | `ScanItemStands` | true | Item stands and armor stands |
 | `ScanIntervalSeconds` | 8 | Safety-net sweep while the world is loaded |
 | `NotifyPlayers` | true | Center-screen message when their items are taken |

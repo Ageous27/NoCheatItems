@@ -51,7 +51,7 @@ namespace NoCheatItems
                 "Delete matching items lying on the ground in loaded zones.");
 
             ScanContainers = config.Bind(scan, nameof(ScanContainers), true,
-                "Remove matching items from chests, carts, ships, tombstones, and other containers in loaded zones.");
+                "Remove matching items from chests, carts, ships, tombstones, the Obliterator, and other containers in loaded zones.");
 
             ScanItemStands = config.Bind(scan, nameof(ScanItemStands), true,
                 "Remove matching items from item stands and armor stands.");

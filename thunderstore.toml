@@ -4,7 +4,7 @@ schemaVersion = "0.0.1"
 [package]
 namespace = "Ageous27"
 name = "NoCheatItems"
-versionNumber = "1.0.1"
+versionNumber = "1.0.2"
 description = "Server-side plugin that deletes Valheim 1.0 cheated items from inventories, containers, and the world."
 websiteUrl = "https://github.com/Ageous27/NoCheatItems"
 containsNsfwContent = false

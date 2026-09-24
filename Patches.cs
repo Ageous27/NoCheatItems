@@ -1,8 +1,9 @@
+using System;
 using HarmonyLib;
 
 namespace NoCheatItems
 {
-    [HarmonyPatch(typeof(Inventory), "Changed")]
+    [HarmonyPatch(typeof(Inventory), "Changed", new[] { typeof(bool), typeof(bool) })]
     internal static class InventoryChangedPatch
     {
         private static void Postfix(Inventory __instance)
@@ -16,7 +17,22 @@ namespace NoCheatItems
     {
         private static void Postfix(ItemDrop __instance)
         {
-            CheatCleaner.HandleWorldDrop(__instance);
+            // DropItems assigns m_cheated after Instantiate, so wait one frame.
+            CheatCleaner.QueueWorldDropCheck(__instance);
+        }
+    }
+
+    [HarmonyPatch(typeof(CharacterDrop), nameof(CharacterDrop.DropItems))]
+    internal static class CharacterDropItemsPatch
+    {
+        private static void Postfix()
+        {
+            if (!ModConfig.Enabled.Value || !ModConfig.ScanWorldDrops.Value || !CheatCleaner.IsServer())
+            {
+                return;
+            }
+
+            CheatCleaner.SweepWorldDrops();
         }
     }
 
